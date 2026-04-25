@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanban Board</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Kanban Board</h1>
+  </header>
+
+  <main class="board" id="board">
+    <section class="column" id="col-todo" data-status="todo">
+      <div class="column-header">
+        <h2>To Do</h2>
+        <span class="count" id="count-todo">0</span>
+      </div>
+      <div class="cards" id="cards-todo"></div>
+      <button class="add-card-btn" data-col="todo">+ Add Card</button>
+    </section>
+
+    <section class="column" id="col-inprogress" data-status="inprogress">
+      <div class="column-header">
+        <h2>In Progress</h2>
+        <span class="count" id="count-inprogress">0</span>
+      </div>
+      <div class="cards" id="cards-inprogress"></div>
+      <button class="add-card-btn" data-col="inprogress">+ Add Card</button>
+    </section>
+
+    <section class="column" id="col-done" data-status="done">
+      <div class="column-header">
+        <h2>Done</h2>
+        <span class="count" id="count-done">0</span>
+      </div>
+      <div class="cards" id="cards-done"></div>
+      <button class="add-card-btn" data-col="done">+ Add Card</button>
+    </section>
+  </main>
+
+  <!-- Add / Edit card modal -->
+  <div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h2 id="modal-title">New Card</h2>
+      <label for="card-title-input">Title</label>
+      <input id="card-title-input" type="text" placeholder="Card title…" maxlength="120" />
+      <label for="card-desc-input">Description</label>
+      <textarea id="card-desc-input" placeholder="Optional description…" rows="3" maxlength="500"></textarea>
+      <div class="modal-actions">
+        <button id="modal-save-btn">Save</button>
+        <button id="modal-cancel-btn" class="secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
