@@ -1,0 +1,242 @@
+/* ─── Reset & base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f0f2f5;
+  color: #1a1a2e;
+  min-height: 100vh;
+}
+
+/* ─── Header ────────────────────────────────────────────────────── */
+header {
+  background: #16213e;
+  color: #e0e0e0;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,.4);
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: .5px;
+}
+
+/* ─── Board ─────────────────────────────────────────────────────── */
+.board {
+  display: flex;
+  gap: 1.25rem;
+  padding: 2rem;
+  overflow-x: auto;
+  min-height: calc(100vh - 60px);
+  align-items: flex-start;
+}
+
+/* ─── Column ────────────────────────────────────────────────────── */
+.column {
+  background: #ffffff;
+  border-radius: 10px;
+  width: 300px;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 4px rgba(0,0,0,.12);
+  flex-shrink: 0;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .85rem 1rem;
+  border-bottom: 2px solid #f0f2f5;
+}
+
+.column-header h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+
+#col-todo    .column-header { border-bottom-color: #e74c3c; }
+#col-inprogress .column-header { border-bottom-color: #f39c12; }
+#col-done    .column-header { border-bottom-color: #27ae60; }
+
+.count {
+  background: #e8ecf0;
+  border-radius: 12px;
+  padding: 1px 8px;
+  font-size: .8rem;
+  font-weight: 600;
+  color: #555;
+}
+
+/* ─── Cards container ───────────────────────────────────────────── */
+.cards {
+  padding: .75rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  min-height: 60px;
+}
+
+/* Drop-zone highlight */
+.cards.drag-over {
+  background: #eaf3ff;
+  border-radius: 6px;
+}
+
+/* ─── Card ───────────────────────────────────────────────────────── */
+.card {
+  background: #f9fafc;
+  border: 1px solid #e2e6ea;
+  border-radius: 8px;
+  padding: .75rem 1rem;
+  cursor: grab;
+  user-select: none;
+  transition: box-shadow .15s, transform .15s;
+  position: relative;
+}
+
+.card:active { cursor: grabbing; }
+.card.dragging { opacity: .4; transform: scale(.98); }
+
+.card:hover { box-shadow: 0 3px 10px rgba(0,0,0,.12); }
+
+.card-title {
+  font-size: .95rem;
+  font-weight: 600;
+  margin-bottom: .25rem;
+  word-break: break-word;
+}
+
+.card-desc {
+  font-size: .82rem;
+  color: #666;
+  word-break: break-word;
+}
+
+/* Card action buttons */
+.card-actions {
+  display: flex;
+  gap: .4rem;
+  margin-top: .6rem;
+  justify-content: flex-end;
+}
+
+.card-actions button {
+  background: none;
+  border: 1px solid #ccd0d5;
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-size: .75rem;
+  cursor: pointer;
+  color: #555;
+  transition: background .12s;
+}
+
+.card-actions button:hover { background: #e8ecf0; }
+.card-actions .delete-btn:hover { background: #fde8e8; border-color: #e74c3c; color: #c0392b; }
+
+/* ─── Add-card button ───────────────────────────────────────────── */
+.add-card-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  border-top: 1px solid #f0f2f5;
+  padding: .75rem 1rem;
+  text-align: left;
+  font-size: .88rem;
+  color: #888;
+  cursor: pointer;
+  border-radius: 0 0 10px 10px;
+  transition: background .12s, color .12s;
+}
+
+.add-card-btn:hover { background: #f7f9fc; color: #333; }
+
+/* ─── Modal ──────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-overlay.hidden { display: none; }
+
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.75rem;
+  width: min(420px, 90vw);
+  box-shadow: 0 8px 30px rgba(0,0,0,.2);
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.modal h2 {
+  font-size: 1.1rem;
+  margin-bottom: .25rem;
+}
+
+.modal label {
+  font-size: .85rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.modal input,
+.modal textarea {
+  width: 100%;
+  padding: .55rem .75rem;
+  border: 1px solid #ccd0d5;
+  border-radius: 7px;
+  font-size: .92rem;
+  resize: vertical;
+  font-family: inherit;
+  color: #1a1a2e;
+  transition: border .15s;
+}
+
+.modal input:focus,
+.modal textarea:focus {
+  outline: none;
+  border-color: #16213e;
+}
+
+.modal-actions {
+  display: flex;
+  gap: .75rem;
+  justify-content: flex-end;
+  margin-top: .5rem;
+}
+
+.modal-actions button {
+  padding: .55rem 1.2rem;
+  border: none;
+  border-radius: 7px;
+  font-size: .9rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .12s;
+}
+
+.modal-actions button:not(.secondary) {
+  background: #16213e;
+  color: #fff;
+}
+
+.modal-actions button:not(.secondary):hover { background: #0f3460; }
+
+.modal-actions button.secondary {
+  background: #e8ecf0;
+  color: #333;
+}
+
+.modal-actions button.secondary:hover { background: #d5dce3; }
